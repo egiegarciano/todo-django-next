@@ -20,7 +20,7 @@ class GetCurrentTodos(generics.ListAPIView):
   pagination_class = TodosPagination
 
   def get_queryset(self):
-    auth_token = self.kwargs.get('auth_token')
+    auth_token = self.request.auth
     user = Token.objects.get(key=auth_token).user
 
     return Todo.objects.filter(user=user, completed_at__isnull=True)
