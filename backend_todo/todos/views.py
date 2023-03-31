@@ -23,7 +23,7 @@ class GetCurrentTodos(generics.ListAPIView):
     auth_token = self.request.auth
     user = Token.objects.get(key=auth_token).user
 
-    return Todo.objects.filter(user=user, completed_at__isnull=True)
+    return Todo.objects.filter(user=user, completed_at__isnull=True).order_by('-created_at')
 
 class GetCompletedTodos(generics.ListAPIView):
   serializer_class = TodoSerializer
