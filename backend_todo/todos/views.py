@@ -9,7 +9,7 @@ class CreateTodo(generics.CreateAPIView):
   serializer_class = TodoSerializer
 
   def perform_create(self, serializer):
-    auth_token = self.kwargs.get('auth_token')
+    auth_token = self.request.auth
     user = Token.objects.get(key=auth_token).user
 
     serializer.save(user=user)
@@ -30,7 +30,7 @@ class GetCompletedTodos(generics.ListAPIView):
   pagination_class = TodosPagination
 
   def get_queryset(self):
-    auth_token = self.kwargs.get('auth_token')
+    auth_token = self.request.auth
     user = Token.objects.get(key=auth_token).user
 
     return Todo.objects.filter(user=user, completed_at__isnull=False)
