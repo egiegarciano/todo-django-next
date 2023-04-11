@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h@(%l5h+ch=roy66p!!j!bc37n#z_mm24=%(zwd87fekzmf$!@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'egiegarciano.pythonanywhere.com']
 
@@ -56,10 +56,12 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'https://todo-next-frontend.vercel.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
+    'https://todo-next-frontend.vercel.app',
 ]
 
 ROOT_URLCONF = 'backend.urls'
