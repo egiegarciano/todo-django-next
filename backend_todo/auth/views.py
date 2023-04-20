@@ -77,8 +77,14 @@ class CustomAuthToken(ObtainAuthToken):
     serializer.is_valid(raise_exception=True)
     user = serializer.validated_data['user']
     token, created = Token.objects.get_or_create(user=user)
-    return Response({
+
+    response = Response({
         'token': token.key,
         'user_id': user.pk,
         'email': user.email
     })
+
+    # This is how to set cookie, check the offical docs for more info
+    # response.set_cookie(key='token', value=token, samesite='none', secure=True)
+  
+    return response

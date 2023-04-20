@@ -37,5 +37,10 @@ class GetCompletedTodos(generics.ListAPIView):
 
 class TodoDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = TodoSerializer
-  queryset = Todo.objects.all()
+
+  def get_queryset(self):
+    auth_token = self.request.auth
+    user = Token.objects.get(key=auth_token).user
+
+    return Todo.objects.filter(user=user, completed_at__isnull=True)
 
